@@ -1,8 +1,10 @@
-name: CI/CD Deploy
+name: Deploy React App
 
 on:
-  workflow_dispatch:
- 
+  push:
+    branches:
+      - main
+
 jobs:
   deploy:
     runs-on: self-hosted
@@ -11,14 +13,30 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Create directory if not exists
-        run: |
-          mkdir -p /home/Anthony/myapp
-
-      - name: Clean old files
+      - name: Clean old app
         run: |
           rm -rf /home/Anthony/myapp/*
-          
-      - name: Copy files to target directory
+
+      - name: Copy project
         run: |
+          mkdir -p /home/Anthony/myapp
           cp -r . /home/Anthony/myapp
+
+      - name: Install dependencies
+        run: |
+          cd /home/Anthony/myapp
+          npm install
+
+      - name: Build React app
+        run: |
+          cd /home/Anthony/myapp
+          npm run build
+
+      - name: Stop old server
+        run: |
+          pkill -f "serve" || true
+
+      - name: Run app
+        run: |
+          npm install -g serve
+          nohup serve -s /home/Anthony/myapp/build -l 3000 > /home/Anthony/myapp/app.log 2>&1 &
