@@ -16,3 +16,7 @@ jobs:
         run: |
           mkdir -p /home/Anthony/myapp
 
+      - name: Copy directory
+        run: |
+            .github/workflows/
+
