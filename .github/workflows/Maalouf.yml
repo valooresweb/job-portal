@@ -15,4 +15,7 @@ jobs:
       - name: Create directory
         run: |
           mkdir -p ~/myapp
-          
+  
+  build:
+    runs-on: self-hosted
+            
