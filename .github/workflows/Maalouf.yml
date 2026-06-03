@@ -10,13 +10,15 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
-        
 
-      - name: Create directory
+      - name: Create directory if not exists
         run: |
           mkdir -p /home/Anthony/myapp
 
-      - name: Copy directory
+      - name: Clean old files
         run: |
-          cp -r Anthony/myapp ./myapp
-
+          rm -rf /home/Anthony/myapp/*
+          
+      - name: Copy files to target directory
+        run: |
+          cp -r . /home/Anthony/myapp
