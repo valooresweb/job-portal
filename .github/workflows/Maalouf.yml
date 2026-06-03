@@ -14,5 +14,5 @@ jobs:
 
       - name: Create directory
         run: |
-          mkdir -p ~/myapp
+          mkdir -p /home/Anthony/myapp
 
